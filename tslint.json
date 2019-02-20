@@ -1,0 +1,42 @@
+{
+  //  "extends": "tslint-config-standard",
+  "defaultSeverity": "warning",
+  /*"globals": {
+    "require": true
+  }*/
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rules": {
+    // 禁止行尾有空格
+    "no-trailing-whitespace": false,
+    // 规定了引用符号的格式，强制规定引用时必须使用单引号
+    "quotemark": [
+      true,
+      "single"
+    ],
+    // 使用Tab进行缩进，每次强制缩进2个字符
+    "indent": [
+      true,
+      "spaces",
+      2
+    ],
+    "trailing-comma": [
+      false,
+      {
+        "multiline": "always",
+        "singleline": "never"
+      }
+    ],
+    // 箭头函数定义的参数周围需要括号
+    "arrow-parens": false,
+    // 分号的使用规则
+    "semicolon": false,
+    "max-line-length": false,
+    "interface-name": false,
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "no-consecutive-blank-lines": false,
+    "prefer-for-of": false
+  }
+}
