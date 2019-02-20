@@ -18,7 +18,7 @@
     // 在.tsx文件里支持JSX
     "jsx": "preserve",
     // 使用的JSX工厂函数
-//    "jsxFactory": "h",
+    // "jsxFactory": "h",
     // 启用装饰器
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
