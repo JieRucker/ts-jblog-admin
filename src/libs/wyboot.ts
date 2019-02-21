@@ -1,16 +1,16 @@
 import VueDB from './vue-db/vue-db-long';
 
 export default {
-  isArray(o) {
+  isArray(o:any[]) {
     return Object.prototype.toString.call(o) === '[object Array]';
   },
-  isObject(o) {
+  isObject(o:object) {
     return Object.prototype.toString.call(o) === '[object Object]';
   },
-  isString(o) {
+  isString(o:string) {
     return Object.prototype.toString.call(o) === '[object String]';
   },
-  isBlank(varValue) {
+  isBlank(varValue:string) {
     if (varValue !== null && varValue !== undefined && varValue !== '' && varValue !== 'null') {
       return false;
     }
@@ -19,7 +19,7 @@ export default {
   setBlank(value = '') {
     return value;
   },
-  isEmpty(obj) {
+  isEmpty(obj: null | never[]) {
     if (obj == null) return true;
     if (obj.length > 0) return false;
     if (obj.length === 0) return true;
@@ -30,7 +30,7 @@ export default {
 
     return true;
   },
-  fore7(arr, func) {
+  fore7(arr: never[], func: any) {
     for (let i = 0, len = arr.length; i < len; i++) {
       let ret = func.call(this, arr[i], i);//回调
       if (typeof ret !== "undefined" && (ret == null || !ret)) break;
@@ -39,8 +39,8 @@ export default {
   VueDB() {
     return new VueDB()
   },
-  cloneObj(obj) {
-    let newObj = {};
+  cloneObj(obj: any) {
+    let newObj: any = {};
     if (obj instanceof Array) {
       newObj = [];
     }
@@ -50,40 +50,37 @@ export default {
     }
     return newObj;
   },
-  isUrl(urlString) {
+  isUrl(urlString: string) {
     if (urlString !== "") {
       let reg = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
       return reg.test(urlString)
     }
   },
-  isNull(obj) {
+  isNull(obj: null | undefined) {
     return obj === null || typeof(obj) === 'undefined'
   },
-  setValue(value) {
-    return value;
-  },
-  timeout(ms) {
+  timeout(ms: number) {
     return new Promise((resolve, reject) => {
       setTimeout(resolve, ms, 'done');
     });
   },
-  isPhoneAvailable(value) {
+  isPhoneAvailable(value:string) {
     let reg = /^(\+?0?86\-?)?1[3456789]\d{9}$/;
     return reg.test(value)
   },
-  bool2Int(flag) {
+  bool2Int(flag:boolean) {
     return flag ? 1 : 0;
   },
-  int2Bool(number) {
+  int2Bool(number:number) {
     return number !== 0;
   },
-  queryUrl(name) {
+  queryUrl(name:string) {
     let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     let r = window.location.search.substr(1).match(reg);
     if (r !== null) return decodeURI(r[2]);
     return null;
   },
-  getsec(str) {
+  getsec(str:any) {
     let str1 = str.substring(1, str.length) * 1;
     let str2 = str.substring(0, 1);
     if (str2 == "s") {
@@ -95,14 +92,14 @@ export default {
     }
   },
   // Set the cookie
-  setCookie(name, value, time, path = '/', domain = '.qimiaowa.cn') {
-    let strsec = this.getsec(time);
+  setCookie(name:string, value:any, time:number, path = '/', domain = '.qimiaowa.cn') {
+    let strsec:any = this.getsec(time);
     let exp = new Date();
     exp.setTime(exp.getTime() + strsec * 1);
     document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString() + ";path=" + path + ";domain=" + domain;
   },
   // Read cookies
-  getCookie(name) {
+  getCookie(name:string) {
     let arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
     if (arr = document.cookie.match(reg)) return unescape(arr[2]);
     else return null;
@@ -132,7 +129,7 @@ export default {
     }
     return flag;
   },
-  reqAnimationFrame(count, cb, loop = false) {
+  reqAnimationFrame(count, cb:any, loop = false) {
     let vendors = ['ms', 'moz', 'webkit', 'o'];
     let requestId, cancalRequestId;
     for (let x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {

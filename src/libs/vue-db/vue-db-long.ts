@@ -7,7 +7,7 @@ class VueDB {
   constructor() {
   }
 
-  setItem(key, value) {
+  setItem(key: any, value: any) {
     if (typeof value === 'object')
       value = JSON.stringify(value);
 
@@ -16,14 +16,14 @@ class VueDB {
     }
   }
 
-  removeItem(key) {
+  removeItem(key: any) {
     if (window.localStorage) {
       window.localStorage.removeItem(key);
     }
   }
 
-  getItem(key) {
-    let now = '';
+  getItem(key: any) {
+    let now: any = '';
     if (window.localStorage) {
       now = window.localStorage.getItem(key);
     }
@@ -33,7 +33,7 @@ class VueDB {
         return now;
       },
       toJson() {
-        let tryObj = {};
+        let tryObj: object | null = {};
         try {
           tryObj = JSON.parse(now)
         } catch (e) {
@@ -48,15 +48,15 @@ class VueDB {
 
   }
 
-  getItemOnce(key) {
-    let now = this.getItem(key);
+  getItemOnce(key: any) {
+    let now: any = this.getItem(key);
     this.removeItem(key);
     return {
       toString() {
         return now;
       },
       toJson() {
-        let tryObj = {};
+        let tryObj: object | null = {};
         try {
           tryObj = JSON.parse(now)
         } catch (e) {

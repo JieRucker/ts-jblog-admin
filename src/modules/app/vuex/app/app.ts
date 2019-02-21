@@ -1,6 +1,17 @@
 import {otherRouter, appRouter} from '../../router/router';
 
-const state = {
+export interface State {
+  isFullScreen: boolean;
+  openedSubmenuArr: object[];
+  menuTheme: string;
+  themeColor: string;
+  currentPath: object[];
+  menuList: object[];
+  activeMenuItem: string | null;
+  routers: object[];
+}
+
+const initState: State = {
   isFullScreen: false,
   openedSubmenuArr: [], // 要展开的菜单数组
   menuTheme: 'dark', // 主题
@@ -14,63 +25,57 @@ const state = {
   ]
 };
 
-const getters = {};
+// getters
+const getters = {
+  isFullScreen: (state: State) => state.isFullScreen,
+};
 
+/// actions
 const actions = {};
 
+// mutations
 const mutations = {
-  updateMenulist(state) {
-    let menuList = [];
+  updateMenulist(state: State) {
+    let list: object[] = [];
     appRouter.forEach((item, index) => {
-      let len = menuList.push(item);
+      list.push(item);
       if (!item.children) return;
+      let len = list.length;
       let childrenArr = item.children.filter(child => child);
-      if (childrenArr === undefined || childrenArr.length === 0) {
-        menuList.splice(len - 1, 1);
+
+      if (childrenArr === undefined || !childrenArr.length) {
+        list.splice(len - 1, 1);
       } else {
-        let handledItem = JSON.parse(JSON.stringify(menuList[len - 1]));
+        let handledItem = JSON.parse(JSON.stringify(list[len - 1]));
         handledItem.children = childrenArr;
-        menuList.splice(len - 1, 1, handledItem);
+        list.splice(len - 1, 1, handledItem);
       }
     });
-    state.menuList = menuList;
+
+    state.menuList = list;
   },
-  changeMenuTheme(state, theme) {
+  changeMenuTheme(state: State, theme: string) {
     state.menuTheme = theme;
   },
-  changeMainTheme(state, mainTheme) {
+  changeMainTheme(state: State, mainTheme: string) {
     state.themeColor = mainTheme;
   },
-  addOpenSubmenu(state, name) {
+  addOpenSubmenu(state: State, name: object[]) {
     [...name].forEach(m => {
       state.openedSubmenuArr.push(m)
     })
   },
-  setCurrentPath(state, pathArr) {
+  setCurrentPath(state: State, pathArr: object[]) {
     state.currentPath = pathArr;
   },
-  setActiveMenuItem(state, obj) {
+  setActiveMenuItem(state: State, obj: { data: { node: { activeMenuItem: string } }, name: string }) {
     state.activeMenuItem = obj.data.node.activeMenuItem || obj.name;
   }
 };
 
 export default {
-  state,
+  state: initState,
   getters,
   actions,
   mutations
 }
-
-/*export interface State {
-  activePage: PageInfo[];
-  headerInfo: HeaderInfo;
-  card: Card;
-  habitList: HabitList[];
-  today: {
-    active: string[] | never[] | number[];
-    finishedDate: moment.Moment[] | never[];
-    isReceived: boolean;
-  };
-  setting: SettingState;
-  user?: UserState;
-}*/

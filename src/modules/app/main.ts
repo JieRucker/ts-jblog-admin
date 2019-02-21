@@ -2,33 +2,32 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import iView from 'iview';
-// import {router} from './router';
-// import store from './vuex';
+import {router} from './router';
+import store from './vuex';
 import App from './App.vue';
-// import App from './App.vue';
 import 'iview/dist/styles/iview.css';
 // import VueI18n from 'vue-i18n';
-// import wyboot from '@/libs/wyboot';
-// import api from '@/api/server';
+import wyboot from '../../libs/wyboot';
+import api from '../../api/server';
 // import JsEncrypt from 'jsencrypt';
-// import jDynamic from '@/components/j-dynamic';
+import jDynamic from '../../components/j-dynamic';
 
 // Vue.use(VueI18n);
 Vue.use(iView);
 
-// Vue.prototype.$api = api;
-// Vue.prototype.$Global = wyboot;
+Vue.prototype.$api = api;
+Vue.prototype.$Global = wyboot;
 // Vue.prototype.$jsEncrypt = JsEncrypt;
-// Vue.prototype.$jDynamic = jDynamic;
+Vue.prototype.$jDynamic = jDynamic;
 
 const app: Vue = new Vue({
   el: '#app',
-  // router: router,
-  // store: store,
+  router: router,
+  store: store,
   render: h => h(App),
   mounted() {
     // 菜单过滤
-    // this.$store.commit('updateMenulist');
+    this.$store.commit('updateMenulist');
   }
 });
 
