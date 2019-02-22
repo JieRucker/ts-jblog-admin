@@ -1,36 +1,22 @@
 import VueDB from './vue-db/vue-db-long';
 
 export default {
-  isArray(o:any[]) {
+  isArray(o: any[]) {
     return Object.prototype.toString.call(o) === '[object Array]';
   },
-  isObject(o:object) {
+  isObject(o: object) {
     return Object.prototype.toString.call(o) === '[object Object]';
   },
-  isString(o:string) {
+  isString(o: string) {
     return Object.prototype.toString.call(o) === '[object String]';
   },
-  isBlank(varValue:string) {
+  isBlank(varValue: string) {
     if (varValue !== null && varValue !== undefined && varValue !== '' && varValue !== 'null') {
       return false;
     }
     return true;
   },
-  setBlank(value = '') {
-    return value;
-  },
-  isEmpty(obj: null | never[]) {
-    if (obj == null) return true;
-    if (obj.length > 0) return false;
-    if (obj.length === 0) return true;
-
-    for (let key in obj) {
-      if (hasOwnProperty.call(obj, key)) return false;
-    }
-
-    return true;
-  },
-  fore7(arr: never[], func: any) {
+  fore7(arr: any[], func: any) {
     for (let i = 0, len = arr.length; i < len; i++) {
       let ret = func.call(this, arr[i], i);//回调
       if (typeof ret !== "undefined" && (ret == null || !ret)) break;
@@ -50,13 +36,13 @@ export default {
     }
     return newObj;
   },
-  isUrl(urlString: string) {
-    if (urlString !== "") {
+  isUrl(url: string) {
+    if (url !== "") {
       let reg = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
-      return reg.test(urlString)
+      return reg.test(url)
     }
   },
-  isNull(obj: null | undefined) {
+  isNull(obj: null) {
     return obj === null || typeof(obj) === 'undefined'
   },
   timeout(ms: number) {
@@ -64,23 +50,23 @@ export default {
       setTimeout(resolve, ms, 'done');
     });
   },
-  isPhoneAvailable(value:string) {
+  /*isPhoneAvailable(value) {
     let reg = /^(\+?0?86\-?)?1[3456789]\d{9}$/;
     return reg.test(value)
   },
-  bool2Int(flag:boolean) {
+  bool2Int(flag) {
     return flag ? 1 : 0;
   },
-  int2Bool(number:number) {
+  int2Bool(number) {
     return number !== 0;
   },
-  queryUrl(name:string) {
+  queryUrl(name) {
     let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     let r = window.location.search.substr(1).match(reg);
     if (r !== null) return decodeURI(r[2]);
     return null;
   },
-  getsec(str:any) {
+  getsec(str) {
     let str1 = str.substring(1, str.length) * 1;
     let str2 = str.substring(0, 1);
     if (str2 == "s") {
@@ -92,14 +78,14 @@ export default {
     }
   },
   // Set the cookie
-  setCookie(name:string, value:any, time:number, path = '/', domain = '.qimiaowa.cn') {
-    let strsec:any = this.getsec(time);
+  setCookie(name, value, time, path = '/', domain = '.qimiaowa.cn') {
+    let strsec = this.getsec(time);
     let exp = new Date();
     exp.setTime(exp.getTime() + strsec * 1);
     document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString() + ";path=" + path + ";domain=" + domain;
   },
   // Read cookies
-  getCookie(name:string) {
+  getCookie(name) {
     let arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
     if (arr = document.cookie.match(reg)) return unescape(arr[2]);
     else return null;
@@ -112,10 +98,10 @@ export default {
     if (cval !== null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
   },
   isPc() {
-    /**
+    /!**
      * To determine whether it is pc || mobile
      * @param flag true则pc，false则mobile
-     */
+     *!/
     let userAgentInfo = navigator.userAgent;
     let Agents = ["Android", "iPhone", "webOS", "BlackBerry",
       "SymbianOS", "Windows Phone",
@@ -129,7 +115,7 @@ export default {
     }
     return flag;
   },
-  reqAnimationFrame(count, cb:any, loop = false) {
+  reqAnimationFrame(count, cb, loop = false) {
     let vendors = ['ms', 'moz', 'webkit', 'o'];
     let requestId, cancalRequestId;
     for (let x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
@@ -153,10 +139,10 @@ export default {
     }
   },
   destroyIframe(iframe) {
-    /**
+    /!**
      * Destroy iframe, free memory.
      * @param iframe Need to destroy the iframe object
-     */
+     *!/
     let el = document.getElementById(iframe);
     if (el) {
       try {
@@ -210,11 +196,11 @@ export default {
   },
   serializeForm(formId) {
     const evt = {
-      /**
+      /!**
        * Gets all the <input> objects in the specified form
        * @param formId
        * @returns {Array}
-       */
+       *!/
       getElements(formId) {
         let form = document.getElementById(formId),
           tagElements = form.getElementsByTagName('input'),
@@ -225,19 +211,19 @@ export default {
         }
         return elements;
       },
-      /**
+      /!**
        * Gets the array of [name, value] in a single input
        * @param element
        * @returns {[*,*]}
-       */
+       *!/
       inputSelector(element) {
         if (element.checked) return [element.name, element.value];
       },
-      /**
+      /!**
        * Get all element tags
        * @param element
        * @returns {*}
-       */
+       *!/
       input(element) {
         switch (element.type.toLowerCase()) {
           case 'submit':
@@ -251,11 +237,11 @@ export default {
         }
         return false;
       },
-      /**
+      /!**
        * Combination element content
        * @param element
        * @returns {*}
-       */
+       *!/
       serializeElement(element) {
         return this.input(element);
       }
@@ -352,7 +338,7 @@ export default {
         return callback(data)
       });
     },
-  }
+  }*/
 };
 
 

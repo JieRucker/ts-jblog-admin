@@ -1,3 +1,11 @@
+/**
+ * @Author: jrucker
+ * @Description
+ * @Date: 2019/2/22 11:25
+ * @Last Modified by: jrucker
+ * @Last Modified time: 2019/2/22 11:25
+ */
+
 import {otherRouter, appRouter} from '../../router/router';
 
 export interface State {

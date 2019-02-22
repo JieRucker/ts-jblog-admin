@@ -1,6 +1,11 @@
 /**
- * Created by wbt on 2018/2/20.
+ * @Author: jrucker
+ * @Description
+ * @Date: 2019/2/22 11:25
+ * @Last Modified by: jrucker
+ * @Last Modified time: 2019/2/22 11:25
  */
+
 import Vue from 'vue';
 import * as Vuex from 'vuex';
 

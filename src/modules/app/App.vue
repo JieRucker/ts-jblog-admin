@@ -19,17 +19,17 @@
       };
     }
   };*/
-  import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { Mutation, State } from 'vuex-class';
-  // import Header from './components/Header.vue';
-  // import Footer from './components/Footer.vue';
-  @Component({
-    components: {
-      // Header,
-      // Footer,
-    },
-  })
-  export default class App extends Vue {}
+  import {Component, Prop, Vue} from 'vue-property-decorator';
+  import {State} from 'vuex-class';
+
+  @Component
+  export default class App extends Vue {
+    @State('themeColor') theme;
+
+    created () {
+      console.log(this.theme)
+    }
+  }
 </script>
 
 <style lang="scss">
